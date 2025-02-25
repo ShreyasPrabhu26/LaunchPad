@@ -4,12 +4,15 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Button } from "./ui/button";
+import { Author, Startup } from "@/sanity/types";
+
+export type StartupTypeCard = Omit<Startup, "author"> & { author?: Author };
 
 const StartupCard = ({ post }: { post: StartupTypeCard }) => {
   const {
     _id,
     title,
-    imageUrl,
+    image,
     _createdAt,
     views,
     author,
@@ -38,9 +41,7 @@ const StartupCard = ({ post }: { post: StartupTypeCard }) => {
         </div>
         <Link href={`/user/${author?._id}`}>
           <Image
-            src={
-              "https://static.vecteezy.com/system/resources/previews/027/951/137/non_2x/stylish-spectacles-guy-3d-avatar-character-illustrations-png.png"
-            }
+            src={author?.image}
             alt={title}
             width={48}
             height={48}
@@ -51,7 +52,7 @@ const StartupCard = ({ post }: { post: StartupTypeCard }) => {
       <Link href={`/startup/${_id}`}>
         <p className="startup-card_desc">{description}</p>
         <Image
-          src={imageUrl}
+          src={image}
           alt={title}
           width={350}
           height={200}
